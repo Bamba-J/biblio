@@ -1,0 +1,25 @@
+<div class="col-xs-4">
+    <fieldset>
+        <legend>Inscription</legend>
+            <form [formGroup]= "userform" (ngSubmit)= "onSubmitform()">
+               <div class="form-group">
+                   <label>votre nom</label>
+                      <input type="name" formControlName = "name" class="form-control">
+               </div>
+               <div class="form-group">
+                   <label >votre prénom</label>
+                   <input type="prénom" formControlName="prenom" class="form-control">
+               </div>
+              
+                <div class="form-group">
+                    <label >votre email</label>
+                    <input type="email" formControlName="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label >pasword</label>
+                    <input type="password" formControlName="password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]= "userform.invalid">s'inscrire</button>
+            </form>
+    </fieldset>
+</div>
