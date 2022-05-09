@@ -11,7 +11,9 @@ export class SignupComponent implements OnInit {
 
   userform!: FormGroup;
   
-  constructor(private formBuilder: FormBuilder, private authservice: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private authservice: AuthService) {
+    this.initform()
+   }
 
   ngOnInit(): void {
       this.initform()

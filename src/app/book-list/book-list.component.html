@@ -1,13 +1,14 @@
+<button class="btn btn-primary" routerLink = "/books/new">Ajouter publication</button>
 <ul class="list-group">
-    <li class="list-group-item" *ngFor = "let book of books">
-            <div >
-                <img src="" alt="">
-            </div>
-            <div >
-                    <h1>{{book.title}}</h1>
-                    <h2>{{book.author}}</h2>
-                    <p>{{book.synopsis}}</p>
-            </div>
-    </li>
+         <app-book *ngFor= "let book of books; let i = index"
+                [title]= "book.title"
+                [pseudo]= "book.pseudo"
+                [date]= "book.date"
+                [Like]= "book.Like"
+                [comment]= "book.comment"
+                [description]= "book.description"
+                [location]= "book.location"
+                [id] = "i">
+
+         </app-book>
 </ul>
-<a routerLink = "../book/new">nouveau livre</a>

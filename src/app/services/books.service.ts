@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { Book } from '../models/book.model';
 
@@ -9,40 +10,32 @@ export class BooksService {
   subscription!: Subscription;
 
  bookSubject = new Subject<any[]>();
- //[]<>{}=>@
+ //[]<>=>{}@
  books : any = [
-  {
-    title : "une si long lettre",
-    author: "mariama ba"
-  },
-  {
-    title : "une si long lettre",
-    author: "mariama ba"
-  },
-  {
-    title : "une si long lettre",
-    author: "mariama ba"
-  }
+  
 
 ]
-  constructor(private db : AngularFirestore) {
+  constructor(private db : AngularFirestore, private router : Router) {
 
   }
   addBook(book: Book){ 
     
-    this.db.collection("/books").add({
-        title: book.title,
-        author : book.author,
-        synopsis : book.synopsis
+    this.db.collection("/publication").add({
+            title: book.title,
+            pseudo : book.pseudo,
+            description : book.description,
+            date : book.date,
+            location : book.location
     }).then(()=>{
-      console.log("document ajouté")
+            console.log("publication ajouté")
+            this.router.navigate(['books'])
     }).catch((error)=>{
-      console.log(error)
+            console.log(error)
     })
   }
   getBook(){
      let bookies
-     this.subscription =  this.db.collection("/books").valueChanges().subscribe((value)=>{ 
+     this.subscription =  this.db.collection("/publication").valueChanges().subscribe((value)=>{ 
        bookies = value;
        for(let bookie of bookies ){
             this.books.push(bookie);
@@ -65,7 +58,7 @@ export class BooksService {
       this.subscription.unsubscribe()
   }
   deleteBook(){ 
-    this.db.collection("/books")
+    this.db.collection("/publication")
   }
   emitBook(){ 
       this.bookSubject.next(this.books.slice());

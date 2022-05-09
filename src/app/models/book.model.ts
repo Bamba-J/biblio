@@ -1,10 +1,19 @@
 export class Book{
     //photo: string;
-  synopsis: string = "";
+
+  pseudo: string
   title: string
-  author: string
-    constructor( title: string, author: string){
+  date : Date
+  description: string
+  location : string;
+  Like : number = 0;
+  comment: string[] = []; 
+    constructor( title: string, pseudo: string, date: Date, description: string, location: string){
         this.title = title;
-        this.author = author
+        this.pseudo = pseudo;
+        this.date = date;
+        this.description = description;
+        this.location = location;
+
     }
 }

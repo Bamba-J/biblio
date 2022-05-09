@@ -4,6 +4,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,15 +22,17 @@ import { BooksService } from './services/books.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { Error404Component } from './error404/error404.component';
+import { BookComponent } from './book-list/book/book.component';
+
 
 
 const appRoutes: Routes = [
-  {path: 'auth/signin', component :SigninComponent},
+  {path: 'auth/signin',  component :SigninComponent},
   {path: 'auth/signup', component :SignupComponent},
-  {path: 'books', component :BookListComponent},
-  {path: 'books/new', component :BookFormComponent},
+  {path: 'books', canActivate : [AuthGuardService], component :BookListComponent},
+  {path: 'books/new',canActivate : [AuthGuardService], component :BookFormComponent},
   {path: 'error', component :Error404Component},
-  {path: 'books/new/:id', component :SingleBookComponent},
+  {path: 'booksSingle',canActivate : [AuthGuardService], component :SingleBookComponent},
   {path: '', component :BookListComponent},
   {path: "**", redirectTo :"error"},
   
@@ -53,7 +57,9 @@ const firebaseConfig = {
     BookListComponent,
     SingleBookComponent,
     BookFormComponent,
-    HeaderComponent
+    HeaderComponent,
+    BookComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -65,8 +71,9 @@ const firebaseConfig = {
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
-    AngularFireModule.initializeApp(firebaseConfig)
-    
+    AngularFireModule.initializeApp(firebaseConfig),
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuardService,

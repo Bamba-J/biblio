@@ -20,8 +20,9 @@ export class BookFormComponent implements OnInit {
       this.initForm();
   }
   onSubmit(){
-      const newBook = new Book(this.bookForm.value["title"], this.bookForm.value["author"]);
-      newBook.synopsis = this.bookForm.value["synopsis"];
+      let date = new Date();
+      const newBook = new Book(this.bookForm.value["title"], this.bookForm.value["pseudo"], date, this.bookForm.value["description"]
+      ,this.bookForm.value["location"],);
       this.bookservice.addBook(newBook);
       
   }
@@ -29,8 +30,10 @@ export class BookFormComponent implements OnInit {
   initForm(){
     this.bookForm = this.formBuilder.group({
       title :["",Validators.required],
-      author:["",Validators.required],
-      synopsis :["synopsis vide"]
+      pseudo:["",Validators.required],
+      description :["",Validators.required],
+      location :["",Validators.required],
+
     })
   }
 }
